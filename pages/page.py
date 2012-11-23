@@ -24,7 +24,6 @@ class Page(object):
         self.base_url = testsetup.base_url
         self.selenium = testsetup.selenium
         self.timeout = testsetup.timeout
-        self._selenium_root = hasattr(self, '_root_element') and self._root_element or self.selenium
 
     @property
     def is_the_current_page(self):
