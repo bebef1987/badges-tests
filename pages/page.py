@@ -37,7 +37,7 @@ class Page(object):
     def is_element_present(self, *locator):
         self.selenium.implicitly_wait(0)
         try:
-            self._selenium_root.find_element(*locator)
+            self.selenium.find_element(*locator)
             return True
         except NoSuchElementException:
             return False
@@ -47,14 +47,14 @@ class Page(object):
 
     def is_element_visible(self, *locator):
         try:
-            return self._selenium_root.find_element(*locator).is_displayed()
+            return self.selenium.find_element(*locator).is_displayed()
         except NoSuchElementException, ElementNotVisibleException:
             return False
 
     def is_element_not_visible(self, *locator):
         self.selenium.implicitly_wait(0)
         try:
-            return not self._selenium_root.find_element(*locator).is_displayed()
+            return not self.selenium.find_element(*locator).is_displayed()
         except NoSuchElementException, ElementNotVisibleException:
             return True
         finally:
@@ -65,7 +65,7 @@ class Page(object):
         """Wait for an element to become present."""
         self.selenium.implicitly_wait(0)
         try:
-            WebDriverWait(self.selenium, 10).until(lambda s: self._selenium_root.find_element(*locator))
+            WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.find_element(*locator))
         except TimeoutException:
             Assert.fail(TimeoutException)
         finally:
@@ -76,7 +76,7 @@ class Page(object):
         """Wait for an element to become not present."""
         self.selenium.implicitly_wait(0)
         try:
-            WebDriverWait(self.selenium, 10).until(lambda s: len(self._selenium_root.find_elements(*locator)) < 1)
+            WebDriverWait(self.selenium, 10).until(lambda s: len(self.selenium.find_elements(*locator)) < 1)
             return True
         except TimeoutException:
             return False
@@ -98,7 +98,7 @@ class Page(object):
         text -- the string to type via send_keys
 
         """
-        text_fld = self._selenium_root.find_element(*locator)
+        text_fld = self.selenium.find_element(*locator)
         text_fld.clear()
         text_fld.send_keys(text)
 

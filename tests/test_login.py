@@ -9,7 +9,6 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.login import Login
 
-
 class TestLogin():
 
     @pytest.mark.nondestructive
